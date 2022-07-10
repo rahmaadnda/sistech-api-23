@@ -1,5 +1,5 @@
 const db = require("../database/firestore");
-const v4 = require("uuid");
+const { v4 } = require("uuid");
 
 class TokenController {
   async generateToken(data) {
@@ -13,3 +13,5 @@ class TokenController {
     return { name: data.name, token };
   }
 }
+
+module.exports = TokenController;
