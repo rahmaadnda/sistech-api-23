@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const { OK, BAD_REQUEST } = require("http-status");
 const TokenController = require("../controllers/tokenController");
-const tokenValidationRules = require("../utils/validator");
+const { tokenValidationRules } = require("../utils/validator");
 const { validationResult } = require("express-validator");
 
 const tokenRouter = Router();

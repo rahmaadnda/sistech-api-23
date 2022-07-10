@@ -8,4 +8,17 @@ const tokenValidationRules = checkSchema({
   },
 });
 
-module.exports = tokenValidationRules;
+const createBlogValidationRules = checkSchema({
+  title: {
+    in: "body",
+    errorMessage: "title is a required field",
+    exists: true,
+  },
+  content: {
+    in: "body",
+    errorMessage: "content is a required field",
+    exists: true,
+  },
+});
+
+module.exports = { tokenValidationRules, createBlogValidationRules };
