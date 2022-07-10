@@ -78,7 +78,28 @@ class BlogController {
     return response;
   }
 
-  async likeBlog(data) {}
+  async likeBlog(data) {
+    let blog = await this.blogDB.doc(data.id).get();
+
+    if (!blog.exists) {
+      return { error: "no blog found with given id" };
+    }
+
+    blog = blog.data();
+
+    let response = {
+      title: blog.title,
+      content: blog.content,
+    };
+
+    await this.blogDB.doc(data.id).update({
+      like: blog.like + 1,
+    });
+
+    response.like = blog.like + 1;
+
+    return response;
+  }
 }
 
 module.exports = BlogController;

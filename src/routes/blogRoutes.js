@@ -55,4 +55,12 @@ blogRouter.put(
   }
 );
 
+blogRouter.post("/like", async (req, res) => {
+  const { id } = req.body;
+
+  const data = await blogController.likeBlog({ id });
+
+  return res.status(OK).json(data);
+});
+
 module.exports = blogRouter;
