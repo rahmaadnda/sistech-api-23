@@ -22,6 +22,7 @@ class BlogController {
       owner: data.token,
     };
   }
+
   async listBlog(data) {
     const blogs = await this.blogDB.where("owner", "==", data.token).get();
 
@@ -38,7 +39,45 @@ class BlogController {
 
     return response;
   }
-  async updateBlog(data) {}
+
+  async updateBlog(data) {
+    let blog = await this.blogDB.doc(data.id).get();
+
+    if (!blog.exists) {
+      return { error: "no blog found with given id" };
+    }
+
+    blog = blog.data();
+
+    if (blog.owner !== data.token) {
+      return { error: "you are not allowed to edit other people blogs" };
+    }
+
+    let response = {
+      title: blog.title,
+      content: blog.content,
+      like: blog.like,
+    };
+
+    if (typeof data.title != "undefined") {
+      await this.blogDB.doc(data.id).update({
+        title: data.title,
+      });
+
+      response.title = data.title;
+    }
+
+    if (typeof data.content != "undefined") {
+      await this.blogDB.doc(data.id).update({
+        content: data.content,
+      });
+
+      response.content = data.content;
+    }
+
+    return response;
+  }
+
   async likeBlog(data) {}
 }
 

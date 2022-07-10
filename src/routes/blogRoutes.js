@@ -1,8 +1,11 @@
 const { Router } = require("express");
-const { OK } = require("http-status");
+const { OK, BAD_REQUEST } = require("http-status");
 const BlogController = require("../controllers/blogController");
 const tokenApiChecker = require("../middlewares/token");
-const { createBlogValidationRules } = require("../utils/validator");
+const {
+  createBlogValidationRules,
+  editBlogValidationRules,
+} = require("../utils/validator");
 const { validationResult } = require("express-validator");
 
 const blogRouter = Router();
@@ -33,5 +36,23 @@ blogRouter.get("/", tokenApiChecker, async (req, res) => {
 
   return res.status(OK).json(data);
 });
+
+blogRouter.put(
+  "/",
+  tokenApiChecker,
+  editBlogValidationRules,
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(BAD_REQUEST).json({ errors: errors.array() });
+    }
+
+    const { title, content, token, id } = req.body;
+
+    const data = await blogController.updateBlog({ title, content, token, id });
+
+    return res.status(OK).json(data);
+  }
+);
 
 module.exports = blogRouter;

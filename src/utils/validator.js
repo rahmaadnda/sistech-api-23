@@ -21,4 +21,26 @@ const createBlogValidationRules = checkSchema({
   },
 });
 
-module.exports = { tokenValidationRules, createBlogValidationRules };
+const editBlogValidationRules = checkSchema({
+  title: {
+    in: "body",
+    errorMessage: "title is a required field",
+    optional: true,
+  },
+  content: {
+    in: "body",
+    errorMessage: "content is a required field",
+    optional: true,
+  },
+  id: {
+    in: "body",
+    errorMessage: "id is a required field",
+    exists: true,
+  },
+});
+
+module.exports = {
+  tokenValidationRules,
+  createBlogValidationRules,
+  editBlogValidationRules,
+};
