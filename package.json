@@ -1,0 +1,18 @@
+{
+  "name": "sistech-api",
+  "version": "1.0.0",
+  "description": "backend api for sistech recruitment",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js"
+  },
+  "keywords": [],
+  "author": "nofamex",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}
