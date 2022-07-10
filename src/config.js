@@ -3,6 +3,7 @@ const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const tokenRouter = require("./routes/tokenRoutes");
+const blogRouter = require("./routes/blogRoutes");
 
 const app = express();
 
@@ -14,5 +15,6 @@ app.use(
 );
 
 app.use("/token", tokenRouter);
+app.use("/blog", blogRouter);
 
 module.exports = app;
