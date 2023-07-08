@@ -4,7 +4,11 @@ require("dotenv").config();
 const PORT = process.env.PORT || 5000;
 
 app.get("/", (req, res) => {
-  res.send("welcome to sistech-api");
+  res.sendFile("pages/index.html", {root: __dirname})
+});
+
+app.get("/about", (req, res) => {
+  res.sendFile("pages/about.html", {root: __dirname})
 });
 
 app.listen(PORT, () => {
