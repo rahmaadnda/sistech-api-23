@@ -1,15 +1,16 @@
 const app = require("./config");
+const path = require("path");
+
 require("dotenv").config({path: '.env.local'});
-const path = process.cwd().toString()
 
 const PORT = process.env.PORT || 5000;
 
 app.get("/", (req, res) => {
-  res.sendFile("src/pages/index.html", {root: path})
+  res.sendFile(path.join(process.cwd(), "src/pages/index.html"))
 });
 
 app.get("/about", (req, res) => {
-  res.sendFile("src/pages/about.html", {root: path})
+  res.sendFile(path.join(process.cwd(), 'src/pages/about.html'))
 });
 
 app.listen(PORT, () => {
