@@ -14,6 +14,7 @@
     "@firebase/util": "1.x",
     "@sentry/node": "^7.7.0",
     "@sentry/tracing": "^7.7.0",
+    "axios": "^1.4.0",
     "cors": "^2.8.5",
     "debug": "^4.3.4",
     "dotenv": "^16.0.1",
@@ -23,6 +24,7 @@
     "firebase": "^9.23.0",
     "firebase-admin": "^11.0.0",
     "helmet": "^5.1.0",
+    "helmet-csp": "^3.4.0",
     "http-status": "^1.5.2",
     "morgan": "^1.10.0",
     "uuid": "^8.3.2"
