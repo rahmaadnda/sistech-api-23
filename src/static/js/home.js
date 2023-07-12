@@ -1,5 +1,42 @@
 const url = './blog'
-let posts
+function getCookie(name) {
+    let matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    ));
+    return matches ? decodeURIComponent(matches[1]) : undefined;
+}
+const userToken = getCookie("token")
+let posts = '';
+
+fetch(url, {
+    method: "GET",
+    headers: {
+        "Content-Type": "application/json",
+        "authorization": "bearer " + userToken
+    }
+}).then(res => res.json())
+    .then(data => {
+        if (data.length != 0) {
+            data.forEach(
+                post => {
+                    console.log(post)
+                    posts += `<div class="card">
+                      <div class="card-body" data-id="${post.id}">
+                        <h4 class="card-title">${post.title}</h4>
+                        <p class="card-text">${post.content}</p>
+                        <button class="btn btn-primary" id="edit-post">Edit Post</button>
+                      </div>
+                    </div>`
+                }
+            )
+        }
+        else {
+            posts = `<h4>No posts yet</h4>`
+        }
+
+        document.getElementById("deck").innerHTML = posts;
+    })
+
 // Get the modal
 let modal = document.getElementById("AddModal");
 let modalPost = document.getElementById("editModal");
@@ -29,30 +66,6 @@ window.onclick = function(event) {
     }
 }
 
-fetch(url, {
-    method: "GET",
-    headers: {
-        "Content-Type": "application/json",
-        "authorization": "bearer 6839b204-4f83-477a-80b0-6c36f90482cb"
-    }
-}).then(res => res.json())
-    .then(data => {
-        data.forEach(
-            post => {
-                console.log(post)
-                posts += `<div class="card">
-          <div class="card-body" data-id="${post.id}">
-            <h4 class="card-title">${post.title}</h4>
-            <p class="card-text">${post.content}</p>
-            <button class="btn btn-primary" id="edit-post">Edit Post</button>
-          </div>
-        </div>`
-            }
-        )
-        document.getElementById("deck").innerHTML = posts;
-    })
-
-
 document.querySelector('.addForm').addEventListener("submit", (e) => {
     e.preventDefault();
     try {
@@ -60,12 +73,12 @@ document.querySelector('.addForm').addEventListener("submit", (e) => {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "authorization": "bearer 6839b204-4f83-477a-80b0-6c36f90482cb"
+                "authorization": "bearer " + userToken
             },
             body: JSON.stringify(
                 {"title": document.getElementById('title').value,
                     "content": document.getElementById('content').value,
-                    "token" : "6839b204-4f83-477a-80b0-6c36f90482cb"}
+                    "token" : userToken}
             )
         });
         result.then(response => response.json()
@@ -73,9 +86,10 @@ document.querySelector('.addForm').addEventListener("submit", (e) => {
                 data: data
             })
         ).then(res => {
-            console.log(res.data)
+                console.log(res.data)
+                window.location.href = './home'
         }));
-        window.location.href = './home'
+
     }
     catch (error) {
         alert(error.message)
@@ -110,12 +124,12 @@ document.getElementById("deck").addEventListener("click", (e) => {
                     method: "PUT",
                     headers: {
                         "Content-Type": "application/json",
-                        "authorization": "bearer 6839b204-4f83-477a-80b0-6c36f90482cb"
+                        "authorization": "bearer " + userToken
                     },
                     body: JSON.stringify(
                         {"title": document.getElementById('newTitle').value,
                             "content": document.getElementById('newContent').value,
-                            "token" : "6839b204-4f83-477a-80b0-6c36f90482cb",
+                            "token" : userToken,
                             "id" : id}
                     )
                 });
@@ -125,8 +139,8 @@ document.getElementById("deck").addEventListener("click", (e) => {
                         })
                     ).then(res => {
                         console.log(res.data)
+                        window.location.reload();
                     }));
-                window.location.reload();
             }
             catch (error) {
                 alert(error.message)

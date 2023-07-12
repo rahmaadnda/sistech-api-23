@@ -21,11 +21,6 @@ app.get("/home", (req, res) => {
 });
 
 app.use('/static', express.static(path.join(process.cwd(), 'src/static')));
-//
-// app.get("/static/js", (req, res) => {
-//   alert(process.cwd())
-//   res.sendFile(path.join(process.cwd(), 'src/static/js'))
-// })
 
 app.get("/image", (req, res) => {
   res.sendFile(path.join(process.cwd(), 'src/image.png'))
