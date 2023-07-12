@@ -1,8 +1,8 @@
-const app = require("../config");
+const app = require("./config");
 const path = require("path");
 const express = require('express');
-const tokenRoutes = require('../routes/tokenRoutes')
-const blogRoutes = require('../routes/blogRoutes')
+const tokenRoutes = require('./routes/tokenRoutes')
+const blogRoutes = require('./routes/blogRoutes')
 
 require("dotenv").config({path: '.env.local'});
 
