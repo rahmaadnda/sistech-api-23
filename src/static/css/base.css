@@ -30,7 +30,7 @@ h4 {
 
 input, #name {
     background-color:#F1DEC9;
-    width: 465px;
+    width: available;
 }
 
 .d-flex {

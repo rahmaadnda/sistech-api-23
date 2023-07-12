@@ -2,9 +2,9 @@
   "name": "sistech-api",
   "version": "1.0.0",
   "description": "backend api for sistech recruitment",
-  "main": "src/index.js",
+  "main": "src/api/index.js",
   "scripts": {
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon src/api/index.js"
   },
   "keywords": [],
   "author": "nofamex",
