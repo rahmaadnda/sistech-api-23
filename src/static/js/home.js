@@ -33,7 +33,6 @@ fetch(url, {
         else {
             posts = `<h4>No posts yet</h4>`
         }
-
         document.getElementById("deck").innerHTML = posts;
     })
 
@@ -89,7 +88,6 @@ document.querySelector('.addForm').addEventListener("submit", (e) => {
                 console.log(res.data)
                 window.location.href = './home'
         }));
-
     }
     catch (error) {
         alert(error.message)
@@ -107,11 +105,9 @@ document.getElementById("deck").addEventListener("click", (e) => {
 
     if(editPost) {
         modalPost.style.display = "block";
-
         spanEdit.onclick = function() {
             modalPost.style.display = "none";
         }
-
         window.onclick = function(event) {
             if (event.target == modalPost) {
                 modalPost.style.display = "none";
@@ -148,7 +144,6 @@ document.getElementById("deck").addEventListener("click", (e) => {
             finally {
                 document.getElementById('newTitle').value = ''
                 document.getElementById('newContent').value = ''
-
             }
         })
     }
